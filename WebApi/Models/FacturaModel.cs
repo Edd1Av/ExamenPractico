@@ -11,7 +11,7 @@ namespace WebApi.Models
         public string? Folio { get; set; }
         public float Saldo { get; set; }
         public DateTime Fecha_Facturacion { get; set; }
-        public DateTime Fecha_Creacion { get; set; }
+        public DateTime? Fecha_Creacion { get; set; }
 
     }
 }
