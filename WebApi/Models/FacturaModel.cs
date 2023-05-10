@@ -13,6 +13,5 @@ namespace WebApi.Models
         public DateTime Fecha_Facturacion { get; set; }
         public DateTime Fecha_Creacion { get; set; }
 
-        public Usuario? Usuario { get; set; }
     }
 }

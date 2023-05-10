@@ -12,8 +12,7 @@ namespace WebApi.Models
         public string? Correo_Electronico { get; set; }
         
         public int Tipo_Usuario { get; set; }
-      
-        public List<Factura>? Facturas { get; set; }
+ 
     }
 
     public class Delete
