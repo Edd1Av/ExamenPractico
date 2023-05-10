@@ -19,10 +19,10 @@ namespace WebApi.Services
         {
             Factura facturaEntity = new()
             {
-                Id_Usuario = facturaM.Id_usuario,
+                Id_Usuario = facturaM.Id_Usuario,
                 Folio = facturaM.Folio,
                 Saldo = facturaM.Saldo,
-                Fecha_Facturacion = facturaM.Fecha_facturacion,
+                Fecha_Facturacion = facturaM.Fecha_Facturacion,
                 Fecha_Creacion = DateTime.Now
             };
 

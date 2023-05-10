@@ -9,11 +9,11 @@ namespace WebApi.Models
         public string? Nombre { get; set; }
         public string? Apellido { get; set; }
         public int Edad { get; set; }
-        public string? Correo_electronico { get; set; }
+        public string? Correo_Electronico { get; set; }
         
-        public int Tipo_usuario { get; set; }
+        public int Tipo_Usuario { get; set; }
       
-        public List<Factura> Facturas { get; set; }
+        public List<Factura>? Facturas { get; set; }
     }
 
     public class Delete

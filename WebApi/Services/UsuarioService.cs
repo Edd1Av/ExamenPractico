@@ -21,7 +21,7 @@ namespace WebApi.Services
 
         public async Task<Response> CreateUsuario(UsuarioModel usuarioM)
         {
-            var email = await _userManager.FindByEmailAsync(usuarioM.Correo_electronico.Trim());
+            var email = await _userManager.FindByEmailAsync(usuarioM.Correo_Electronico.Trim());
 
             if (email != null)
             {
@@ -32,13 +32,13 @@ namespace WebApi.Services
             {
                 try
                 {
-                    ETipoUsuario tipoUsuario = (ETipoUsuario)usuarioM.Tipo_usuario;
+                    ETipoUsuario tipoUsuario = (ETipoUsuario)usuarioM.Tipo_Usuario;
                     Usuario usuarioEntity = new()
                     {
                         Nombre = usuarioM.Nombre.Trim(),
                         Apellido = usuarioM.Apellido.Trim(),
                         Edad = usuarioM.Edad,
-                        Correo_Electronico = usuarioM.Correo_electronico.Trim(),
+                        Correo_Electronico = usuarioM.Correo_Electronico.Trim(),
                         Tipo_Usuario = (int)tipoUsuario
                     };
 
