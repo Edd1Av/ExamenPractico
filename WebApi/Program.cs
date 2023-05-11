@@ -13,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -30,19 +29,49 @@ builder.Services.AddDbContext<VentaDbContext>(options =>{
         options.UseSqlServer(builder.Configuration.GetConnectionString("DbVentaConnection"));
     });
 
-builder.Services.AddTransient<IUsuarioService, UsuarioService>();
-builder.Services.AddTransient<IFacturaService, FacturaService>();
-builder.Services.AddTransient<IIdentityService, IdentityService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IFacturaService, FacturaService>();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<VentaDbContext>();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-var secretkey = builder.Configuration.GetSection("Settings").GetSection("SecretKey").ToString();
-var keyBytes = Encoding.UTF8.GetBytes(secretkey);
+//var secretkey = builder.Configuration.GetSection("Settings").GetSection("SecretKey").ToString();
+//var keyBytes = Encoding.UTF8.GetBytes(secretkey);
 
-builder.Services.AddAuthentication(options => {
+
+//var key = builder.Configuration["Jwt:Key"];
+//var issuer = builder.Configuration["Jwt:Issuer"];
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//.AddJwtBearer(options =>
+//{
+//    options.TokenValidationParameters = new TokenValidationParameters
+//    {
+//        ValidateIssuer = false,
+//        ValidateAudience = false,
+//        ValidateIssuerSigningKey = true,
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
+//    };
+
+//    options.Events = new JwtBearerEvents
+//    {
+//        OnAuthenticationFailed = context =>
+//        {
+//            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+//            {
+//                context.Response.Headers.Add("Token-Expired", "true");
+//            }
+//            return Task.CompletedTask;
+//        }
+//    };["Settings:SecretKey"]
+//});
+var secretkey = builder.Configuration["Settings:SecretKey"];
+var keyBytes = Encoding.ASCII.GetBytes(secretkey);
+
+builder.Services.AddAuthentication(options =>
+{
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
@@ -71,9 +100,9 @@ app.UseHttpsRedirection();
 
 app.UseCors(devCorsPolicy);
 
-app.UseAuthorization();
-
 app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapControllers();
 

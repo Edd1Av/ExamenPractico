@@ -20,7 +20,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-     
+        [Authorize]
         public IActionResult GetFacturas()
         {
             List<Factura> facturas = _facturaService.GetFacturas();
@@ -29,7 +29,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-     
+        [Authorize]
         public IActionResult PostFactura(FacturaModel factura)
         {
 
@@ -40,7 +40,7 @@ namespace WebApi.Controllers
      
         [HttpPost]
         [Route("delete")]
-
+        [Authorize]
         public IActionResult DeleteFactura(Delete factura)
         {
             Response resp = _facturaService.DeleteFactura(factura.Id);

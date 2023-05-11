@@ -29,7 +29,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-
+        [Authorize]
         public async Task<IActionResult> PostUsuario(UsuarioModel usuario)
         {
 
@@ -39,7 +39,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("delete")]
-   
+        [Authorize]
         public async Task<IActionResult> DeleteUsuario(Delete usuario)
         {
             Response resp = await _usuarioService.DeleteUsuario(usuario.Id);
